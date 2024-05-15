@@ -41,6 +41,15 @@ class DB
         $stmt->execute(['user_id' => $userId, 'timestamp' => time(), 'ip' => $ip]);
 
     }
+    function getUserClassrooms($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT c.classroom_name, cu.classroom_id FROM classrooms_users cu
+        inner join users u ON cu.user_id = u.id
+        inner join classrooms c ON cu.classroom_id =  c.id
+        where cu.user_id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchAll();
+    }
 
 
 
@@ -88,10 +97,46 @@ class DB
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
+        $sql = "CREATE TABLE IF NOT EXISTS Classrooms (
+            id int(11) AUTO_INCREMENT,
+            classroom_name varchar(255) NOT NULL,
+            description text NOT NULL,
+            created_at varchar(255) NOT NULL,
+            updated_at varchar(255) NOT NULL,
+            PRIMARY KEY (id)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
 
+        $sql = "CREATE TABLE IF NOT EXISTS Classrooms_Queue (
+            id int(11) AUTO_INCREMENT,
+            classroom_id int(11) ,
+            user_id int(11) ,
+            question text NOT NULL,
+            status int(11) ,
+            created_at varchar(255) NOT NULL,
+            updated_at varchar(255) NOT NULL,
+            PRIMARY KEY (id),
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            FOREIGN KEY (classroom_id) REFERENCES Classrooms(id)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
 
+        $sql = "CREATE TABLE IF NOT EXISTS Classrooms_Users (
+            id int(11) AUTO_INCREMENT,
+            classroom_id int(11) ,
+            user_id int(11) ,
+
+            PRIMARY KEY (id),
+            FOREIGN KEY (user_id) REFERENCES users(id),
+            FOREIGN KEY (classroom_id) REFERENCES Classrooms(id)
+            )ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
 
     }
 
