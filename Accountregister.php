@@ -47,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = 'smtp.ethereal.email';
             $mail->SMTPAuth = true;
-            $mail->Username = 'loma32@ethereal.email';
-            $mail->Password = 'kyZ57EWDrkSu85ZAD1';
+            $mail->Username = 'wilburn.abernathy@ethereal.email';
+            $mail->Password = 'BkNVQYtEMDk6CuhMd8';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
