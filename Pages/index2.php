@@ -8,6 +8,9 @@ require_once "Pages/Layout/Qtable.php";
 require_once "Pages/Layout/loggedInUsers.php";
 require_once "Pages/Layout/Comments.php";
 require_once "Pages/Layout/topnav.php";
+require_once "Models/Init.php";
+require_once "Models/UserDatabase.php";
+
 
 $db = new DB();
 

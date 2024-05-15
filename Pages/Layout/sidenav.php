@@ -10,11 +10,34 @@ function layout_sidenav()
             <div class="w3-col s4">
                 <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width: 46px" />
             </div>
-            <div class="w3-col s8 w3-bar">
-                <span>Welcome, <strong>Mike</strong></span><br />
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li>
+                        <a href="#"><i class="fa fa-phone"></i> +46-111-22-33</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-map-marker"></i> Testgatan 122</a>
+                    </li>
+                </ul>
+                <ul class="header-links pull-right">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="" title="Manage">Manage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="Pages/logout.php" title="Manage">Logout</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Pages/register.php">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/Pages/register.php">Login</a>
+                        </li>
+                    </ul>
+                </ul>
             </div>
         </div>
         <hr />
