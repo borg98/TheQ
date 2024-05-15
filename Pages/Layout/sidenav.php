@@ -28,13 +28,13 @@ function layout_sidenav()
                             <a class="nav-link text-dark" href="" title="Manage">Manage</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="Pages/logout.php" title="Manage">Logout</a>
+                            <a class="nav-link text-dark" href="/logout.php" title="Manage">Logout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Pages/register.php">Register</a>
+                            <a class="nav-link text-dark" href="/register.php">Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Pages/register.php">Login</a>
+                            <a class="nav-link text-dark" href="/register.php">Login</a>
                         </li>
                     </ul>
                 </ul>
