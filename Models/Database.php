@@ -1,15 +1,11 @@
 <?php
 require_once ('Database.php');
 require_once ('UserDatabase.php');
+require_once ('vendor/autoload.php');
 
 
 class DB
 {
-    private $host = 'localhost';
-    private $db = 'theq';
-    private $user = 'root';
-    private $pass = 'root';
-    private $charset = 'utf8mb4';
 
     public $pdo;
     public $userDatabase;
@@ -23,11 +19,18 @@ class DB
 
     function __construct()
     {
-        $dsn = "mysql:host=$this->host;dbname=$this->db";
-        $this->pdo = new PDO($dsn, $this->user, $this->pass);
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
+        $dotenv->load();
+        $host = $_ENV['host'];
+        $db = $_ENV['db'];
+        $user = $_ENV['user'];
+        $pass = $_ENV['pass'];
+        $port = $_ENV['port'];
+
+        $dsn = "mysql:host=$host;dbname=$db;port=$port";
+        $this->pdo = new PDO($dsn, $user, $pass);
         $this->userDatabase = new UserDatabase($this->pdo);
         $this->initIfNotInitialized();
-
 
     }
 
