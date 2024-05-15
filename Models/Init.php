@@ -11,31 +11,46 @@ class Init
 
     public function init()
     {
-        $this->pdo->exec("CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(50) NOT NULL,
-            password VARCHAR(255) NOT NULL,
-            email VARCHAR(100) NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )");
 
-        $this->pdo->exec("CREATE TABLE IF NOT EXISTS posts (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            title VARCHAR(255) NOT NULL,
-            content TEXT NOT NULL,
-            user_id INT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(id)
-        )");
+        $this->pdo->query("CREATE TABLE IF NOT EXISTS `Users` (
+            `id` int(11) AUTO_INCREMENT,
+            `username` varchar(255) NOT NULL,
+            `email` varchar(255) NOT NULL,
+            `password` varchar(255) NOT NULL,
+            `created_at` varchar(255) NOT NULL,
+            `updated_at` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            )");
 
-        $this->pdo->exec("CREATE TABLE IF NOT EXISTS comments (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            content TEXT NOT NULL,
-            user_id INT NOT NULL,
-            post_id INT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (user_id) REFERENCES users(id),
-            FOREIGN KEY (post_id) REFERENCES posts(id)
+        $this->pdo->query("CREATE TABLE IF NOT EXISTS `Classrooms` (
+            `id` int(11) AUTO_INCREMENT,
+            `classroom_name` varchar(255) NOT NULL,
+            `description` text NOT NULL,
+            `created_at` varchar(255) NOT NULL,
+            `updated_at` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            )");
+
+        $this->pdo->query("CREATE TABLE IF NOT EXISTS `Classrooms_Queue` (
+            `id` int(11) AUTO_INCREMENT,
+            `classroom_id` int(11) ,
+            `user_id` int(11) ,
+            `question` text NOT NULL,
+            `status` int(11) ,
+            `created_at` varchar(255) NOT NULL,
+            `updated_at` varchar(255) NOT NULL,
+            PRIMARY KEY (`id`),
+            FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`),
+            FOREIGN KEY (`classroom_id`) REFERENCES `Classrooms`(`id`)
+            )");
+
+        $this->pdo->query("CREATE TABLE IF NOT EXISTS `Users_Classrooms` (
+        `id` int(11) AUTO_INCREMENT,    
+        `classroom_id` int(11) ,
+        `user_id` int(11) ,
+        PRIMARY KEY (`id`)
+        FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`),
+        FOREIGN KEY (`classroom_id`) REFERENCES `Classrooms`(`id`)
         )");
 
 
