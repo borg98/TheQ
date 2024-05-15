@@ -27,7 +27,7 @@ layout_head();
   <?php
   layout_topnav();
 
-  layout_sidenav();
+  layout_sidenav($db);
   ?>
   <!-- Overlay effect when opening sidebar on small screens -->
   <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor: pointer"

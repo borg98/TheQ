@@ -1,6 +1,8 @@
 <?php
 
-function layout_sidenav()
+
+
+function layout_sidenav($dbContext)
 {
 
     ?>
@@ -16,7 +18,10 @@ function layout_sidenav()
                         <a href="#"><i class="fa fa-phone"></i> +46-111-22-33</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a>
+                        <a href="#"><i class="fa fa-envelope-o"></i> <?php
+                        echo $dbContext->getUsersDatabase()->getAuth()->getUsername() ?>
+
+                        </a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-map-marker"></i> Testgatan 122</a>
@@ -27,15 +32,28 @@ function layout_sidenav()
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="" title="Manage">Manage</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/logout.php" title="Manage">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/register.php">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/register.php">Login</a>
-                        </li>
+                        <?php
+                        if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/accountlogout.php">Logout</a>
+                            </li>
+                        <?php }
+                        ?>
+                        <?php
+                        if (!$dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/register.php">Register</a>
+                            </li>
+                        <?php }
+                        ?>
+
+                        <?php
+                        if (!$dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/accountlogin.php">Login</a>
+                            </li>
+                        <?php }
+                        ?>
                     </ul>
                 </ul>
             </div>
