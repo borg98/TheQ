@@ -82,20 +82,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if ($registeredOk) { ?>
             <div>Tack för din registering, kolla mailet och klicka</div>
         <?php } else { ?>
-            <h1><?php echo $message; ?></h1>
-            <form method="post" class="form">
-                <input type="text" name="email" placeholder="Email" value="<?php echo $email ?>">
 
-                <input type="text" name="username" placeholder="Username" value="<?php echo $username ?>">
-                <input type="password" name="password" placeholder="Password">
-                <input type="text" name="firstname" placeholder="First Name">
-                <input type="text" name="lastname" placeholder="Last Name">
-                <input type="text" name="address" placeholder="Address">
-                <input type="text" name="city" placeholder="City">
-                <input type="text" name="zip" placeholder="ZIP Code">
-                <input type="text" name="phone" placeholder="Phone Number">
-                <button type="submit" class="btn">Registrera</button>
-            </form>
-        <?php } ?>
+            <doctype html>
+
+                <title><?php echo $title; ?></title>
+                <meta charset="UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway" />
+                <link rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+                <script src="JS/main.js" defer></script>
+                <style>
+                    html,
+                    body,
+                    h1,
+                    h2,
+                    h3,
+                    h4,
+                    h5 {
+                        font-family: "Raleway", sans-serif;
+                    }
+                </style>
+                <html>
+
+                <h1><?php echo $message; ?></h1>
+                <form method="post" class="form">
+                    <input type="text" name="email" placeholder="Email" value="<?php echo $email ?>">
+
+                    <input type="text" name="username" placeholder="Username" value="<?php echo $username ?>">
+                    <input type="password" name="password" placeholder="Password">
+                    <input type="text" name="firstname" placeholder="First Name">
+                    <input type="text" name="lastname" placeholder="Last Name">
+                    <input type="text" name="address" placeholder="Address">
+                    <input type="text" name="city" placeholder="City">
+                    <input type="text" name="zip" placeholder="ZIP Code">
+                    <input type="text" name="phone" placeholder="Phone Number">
+                    <button type="submit" class="btn">Registrera</button>
+                </form>
+
+                </html>
+
+            <?php } ?>
     </main>
 </body>

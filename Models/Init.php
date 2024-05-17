@@ -22,7 +22,6 @@ class Init
         $this->pdo = $pdo;
         $this->userDatabase = new UserDatabase($pdo);
         $this->userDatabase->init();
-
     }
 
     public function init()

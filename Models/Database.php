@@ -53,6 +53,56 @@ class DB
 
 
 
+    function getClassroomQueueById($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM classrooms_queue 
+        WHERE classroom_id = :id AND status = 0
+        ORDER BY created_at DESC ");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetchAll();
+
+    }
+    function addUserToQueue($classroom_id, $question, $user_id, $location)
+    {
+        $date = date('Y-m-d H:i:s');
+        $stmt = $this->pdo->prepare("INSERT INTO classrooms_queue (classroom_id, user_id, question, status, created_at, updated_at, studentlocation )  VALUES (:classroom_id, :user_id, :question, 0, :date_created , :date_updated, :studentlocation)");
+        $stmt->execute(['classroom_id' => $classroom_id, 'user_id' => $user_id, 'question' => $question, 'date_created' => $date, 'date_updated' => $date, 'studentlocation' => $location]);
+    }
+    function getUserById($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
+    }
+    function markQueueAsDone($id)
+    {
+        $stmt = $this->pdo->prepare("UPDATE classrooms_queue SET status = 1 WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+    }
+    function getAllClassrooms()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM classrooms");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    function getUserByClassroomId($classroom_id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM classrooms_users WHERE classroom_id = :classroom_id");
+        $stmt->execute(['classroom_id' => $classroom_id]);
+        return $stmt->fetchAll();
+
+    }
+    function removeStudent($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM classrooms_queue WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+    }
+    function setStatusToBanned($id)
+    {
+        $stmt = $this->pdo->prepare("UPDATE users SET status = 2 WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+    }
+
 
 
     function loggedinUser()
@@ -115,6 +165,7 @@ class DB
             user_id int(11) ,
             question text NOT NULL,
             status int(11) ,
+            studentlocation varchar(255) NOT NULL,
             created_at varchar(255) NOT NULL,
             updated_at varchar(255) NOT NULL,
             PRIMARY KEY (id),

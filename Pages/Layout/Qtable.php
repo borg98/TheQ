@@ -1,55 +1,63 @@
 <?php
 
-function layout_Qtable()
+function layout_Qtable($classroom_id)
 {
 
+    $db = new DB();
+    $user_roleIsAdmin = $db->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::ADMIN);
+    $user_roleIsAuthor = $db->getUsersDatabase()->getAuth()->hasRole(\Delight\Auth\Role::AUTHOR);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $queue_id = $_POST['queue_id'];
+        $db->markQueueAsDone($queue_id);
+        header("location: classroom?id=$classroom_id");
+    }
     ?>
 
     <div class="w3-panel">
         <div class="w3-row-padding" style="margin: 0 -16px">
 
             <div class="w3-container">
-                <h5>Feeds</h5>
+                <h5>Queue</h5>
                 <table class="w3-table w3-striped w3-white">
-                    <tr>
-                        <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
-                        <td>New record, over 90 views.</td>
-                        <td><i>10 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-bell w3-text-red w3-large"></i></td>
-                        <td>Database error.</td>
-                        <td><i>15 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-users w3-text-yellow w3-large"></i></td>
-                        <td>New record, over 40 users.</td>
-                        <td><i>17 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-comment w3-text-red w3-large"></i></td>
-                        <td>New comments.</td>
-                        <td><i>25 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-bookmark w3-text-blue w3-large"></i></td>
-                        <td>Check transactions.</td>
-                        <td><i>28 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-laptop w3-text-red w3-large"></i></td>
-                        <td>CPU overload.</td>
-                        <td><i>35 mins</i></td>
-                    </tr>
-                    <tr>
-                        <td><i class="fa fa-share-alt w3-text-green w3-large"></i></td>
-                        <td>New shares.</td>
-                        <td><i>39 mins</i></td>
-                    </tr>
+                    <?php
+
+                    foreach ($db->getClassroomQueueById($classroom_id) as $queue) {
+
+                        $user = $db->getUserById($queue['user_id']);
+                        ?>
+                        <tr>
+                            <td><i class="fa fa-user w3-text-blue w3-large"></i></td>
+                            <td><?php echo $user['username'] ?></td>
+                            <td><i><?php echo $queue['created_at'] ?></i></td>
+
+                            <?php
+                            if ($user_roleIsAdmin || $user_roleIsAuthor) {
+                                ?>
+                                <td> <?php echo $queue['question'] ?></td>
+                                <td>
+
+                                    <?php echo $queue['studentlocation'] ?>
+
+                                <td>
+
+                                    <form method="post">
+                                        <input type="hidden" name="queue_id" value="<?php echo $queue['id'] ?>">
+                                        <button type="submit" class="btn btn-success">Mark as done</button>
+                                    </form>
+                                </td>
+
+
+                            </tr>
+
+                            <?php
+                            }
+                    }
+                    ?>
+
+
                 </table>
             </div>
         </div>
     </div>
     <?php
 }
-

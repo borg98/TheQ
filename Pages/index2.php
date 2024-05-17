@@ -13,11 +13,14 @@ require_once "Models/UserDatabase.php";
 
 
 $db = new DB();
+$classroom_id = $_GET['id'];
 
 
 
 layout_head();
 ?>
+
+
 
 
 
@@ -40,7 +43,7 @@ layout_head();
     layout_dashboard();
     ?>
     <?php
-    layout_Qtable();
+    layout_Qtable($classroom_id);
     ?>
     <hr />
     <hr />
