@@ -45,7 +45,7 @@ layout_head();
         layout_dashboard();
         ?>
         <?php
-        layout_adminaccordion();
+        layout_adminaccordion($db);
         ?>
         <hr />
         <hr />

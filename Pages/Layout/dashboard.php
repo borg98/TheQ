@@ -1,8 +1,25 @@
 <?php
 
+require_once "Models/Database.php";
+
+
+
+
+
+
+
+
+
 function layout_dashboard()
 {
 
+
+    $db = new DB();
+
+    $total_users_in_queue = $db->TotalUsersInAllQueues();
+    $total_classrooms = $db->getNumberOfClassrooms();
+    $most_recent_requests = $db->questionsRecent24Hours();
+    $count_users = $db->countAllUsers();
     ?>
 
     <!DOCTYPE html>
@@ -19,7 +36,7 @@ function layout_dashboard()
             <div class="w3-container w3-red w3-padding-16">
                 <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
                 <div class="w3-right">
-                    <h3>52</h3>
+                    <h3><?php echo $most_recent_requests ?></h3>
                 </div>
                 <div class="w3-clear"></div>
                 <h4> Recent requests</h4>
@@ -29,7 +46,7 @@ function layout_dashboard()
             <div class="w3-container w3-blue w3-padding-16">
                 <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
                 <div class="w3-right">
-                    <h3>99</h3>
+                    <h3><?php echo $total_users_in_queue ?></h3>
                 </div>
                 <div class="w3-clear"></div>
                 <h4>People in queue</h4>
@@ -41,7 +58,8 @@ function layout_dashboard()
                     <i class="fa fa-share-alt w3-xxxlarge"></i>
                 </div>
                 <div class="w3-right">
-                    <h3>23</h3>
+                    <h3><?php echo $total_classrooms ?></php>
+                    </h3>
                 </div>
                 <div class="w3-clear"></div>
                 <h4>Classrooms</h4>
@@ -51,7 +69,7 @@ function layout_dashboard()
             <div class="w3-container w3-orange w3-text-white w3-padding-16">
                 <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
                 <div class="w3-right">
-                    <h3>50</h3>
+                    <h3><?php echo $count_users ?> </h3>
                 </div>
                 <div class="w3-clear"></div>
                 <h4>Users</h4>
